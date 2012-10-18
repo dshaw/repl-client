@@ -1,0 +1,22 @@
+{
+  "name": "repl-client-example-socket.io",
+  "version": "0.1.0",
+  "description": "Use rc with socket.io.",
+  "author": "Daniel D. Shaw <dshaw@dshaw.com> (http://dshaw.com)",
+  "license": "MIT",
+  "main": "./rc.io.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "mixture": "~0.1.2",
+    "optimist": "~0.3.5",
+    "replify": "~1.0.0",
+    "socket.io": "~0.9.10",
+    "socket.io-client": "~0.9.10"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">= 0.8.0"
+  }
+}

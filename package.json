@@ -1,0 +1,36 @@
+{
+  "name": "repl-client",
+  "version": "0.1.0",
+  "description": "Easy REPL Client. Works great with replify.",
+  "keywords": [
+    "repl",
+    "replify",
+    "observability"
+  ],
+  "author": "Daniel D. Shaw <dshaw@dshaw.com> (http://dshaw.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dshaw/repl-client.git"
+  },
+  "bugs": {
+    "url": "http://github.com/dshaw/repl-client/issues"
+  },
+  "license": "MIT",
+  "main": "./repl-client.js",
+  "bin": {
+    "rc": "./repl-client.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "directories": {
+    "examples": "examples"
+  },
+  "dependencies": {
+    "optimist": "~0.3.5"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">= 0.8.0"
+  }
+}
