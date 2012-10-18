@@ -11,7 +11,8 @@
  */
 
 var net = require('net')
-  , options = require('optimist').options('p', { alias : 'path' }).argv
+  , optimist = require('optimist')
+  , options = optimist.options('p', { alias : 'path' }).argv
 
 /**
  * Configuration

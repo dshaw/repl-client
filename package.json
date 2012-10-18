@@ -1,6 +1,6 @@
 {
   "name": "repl-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Easy REPL Client. Works great with replify.",
   "keywords": [
     "repl",
