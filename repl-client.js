@@ -35,43 +35,27 @@ if (!options.path) {
 var socket = net.connect(options)
   , streams2 = !!stream.Transform
 
-process.stdin.pipe(socket, { end: false }).pipe(process.stdout)
+process.stdin.pipe(socket)
+socket.pipe(process.stdout)
 
-function destroySocket () {
+process.stdin.on('end', function () {
   socket.destroy()
   console.log()
-}
+})
 
-process.stdin.on('end', destroySocket)
+process.stdin.on('data', function (buffer) {
+  if (buffer.length === 1 && buffer[0] === 4) { // EOT (end-of-transmission) Ctrl-D
+    process.stdin.emit('end')
+  }
+})
 
-if (streams2) {
+socket.on('connect', function () {
+  if (!streams2) process.stdin.resume()
+  process.stdin.setRawMode(true)
+})
 
-  socket.on('connect', function () {
-    process.stdin.setRawMode(true)
-  })
-
-  socket.on('close', function () {
-    process.stdin.setRawMode(false)
-    process.exit()
-  })
-
-} else { // node < v0.10
-
-  socket.on('connect', function () {
-    process.stdin.resume()
-    process.stdin.setRawMode(true)
-  })
-
-  socket.on('close', function done () {
-    process.stdin.setRawMode(false)
-    process.stdin.pause()
-    socket.removeListener('close', done)
-  })
-
-  process.stdin.on('data', function (buffer) {
-    if (buffer.length === 1 && buffer[0] === 4) {
-      destroySocket()
-    }
-  })
-
-}
+socket.on('close', function done () {
+  process.stdin.setRawMode(false)
+  if (!streams2) process.stdin.pause()
+  socket.removeListener('close', done)
+})
