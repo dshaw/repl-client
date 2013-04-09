@@ -2,7 +2,7 @@
 
 /*!
  * repl-client
- * Copyright(c) 2012 Daniel D. Shaw <dshaw@dshaw.com>
+ * Copyright(c) 2012-2013 Daniel D. Shaw <dshaw@dshaw.com>
  * MIT Licensed
  */
 
@@ -11,6 +11,7 @@
  */
 
 var net = require('net')
+  , stream = require('stream')
   , optimist = require('optimist')
   , options = optimist.options('p', { alias : 'path' }).argv
 
@@ -32,20 +33,10 @@ if (!options.path) {
  */
 
 var socket = net.connect(options)
+  , streams2 = !!stream.Transform
 
 process.stdin.pipe(socket)
 socket.pipe(process.stdout)
-
-socket.on('connect', function () {
-  process.stdin.resume()
-  process.stdin.setRawMode(true)
-})
-
-socket.on('close', function done () {
-  process.stdin.setRawMode(false)
-  process.stdin.pause()
-  socket.removeListener('close', done)
-})
 
 process.stdin.on('end', function () {
   socket.destroy()
@@ -53,7 +44,18 @@ process.stdin.on('end', function () {
 })
 
 process.stdin.on('data', function (buffer) {
-  if (buffer.length === 1 && buffer[0] === 4) {
+  if (buffer.length === 1 && buffer[0] === 4) { // EOT (end-of-transmission) Ctrl-D
     process.stdin.emit('end')
   }
+})
+
+socket.on('connect', function () {
+  if (!streams2) process.stdin.resume()
+  process.stdin.setRawMode(true)
+})
+
+socket.on('close', function done () {
+  process.stdin.setRawMode(false)
+  if (!streams2) process.stdin.pause()
+  socket.removeListener('close', done)
 })
