@@ -39,6 +39,7 @@ process.stdin.pipe(socket)
 socket.pipe(process.stdout)
 
 process.stdin.on('end', function () {
+  process.stdin.setRawMode(false)
   socket.destroy()
   console.log()
 })
@@ -55,7 +56,6 @@ socket.on('connect', function () {
 })
 
 socket.on('close', function done () {
-  process.stdin.setRawMode(false)
   if (!streams2) process.stdin.pause()
   socket.removeListener('close', done)
 })
