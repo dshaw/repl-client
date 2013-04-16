@@ -41,11 +41,11 @@ socket.pipe(process.stdout)
 process.stdin.on('end', function () {
   process.stdin.setRawMode(false)
   socket.destroy()
-  console.log()
 })
 
 process.stdin.on('data', function (buffer) {
   if (buffer.length === 1 && buffer[0] === 4) { // EOT (end-of-transmission) Ctrl-D
+    console.log() // provide graceful line break
     process.stdin.emit('end')
   }
 })
@@ -55,7 +55,4 @@ socket.on('connect', function () {
   process.stdin.setRawMode(true)
 })
 
-socket.on('close', function done () {
-  if (!streams2) process.stdin.pause()
-  socket.removeListener('close', done)
-})
+socket.on('close', process.exit)
