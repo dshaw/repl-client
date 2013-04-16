@@ -1,7 +1,7 @@
 {
   "name": "repl-client",
-  "version": "0.2.0",
-  "description": "Easy REPL Client. Works great with replify.",
+  "version": "0.2.1",
+  "description": "REPL Client (rc) with tab completion and history. A simple, npm installable alternative to netcat (nc) and socat.",
   "keywords": [
     "repl",
     "replify",

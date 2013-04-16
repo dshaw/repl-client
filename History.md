@@ -1,4 +1,10 @@
 
+0.2.1 / 2013-04-16
+==================
+
+  * Correctly handle setRawMode on stdin in node v0.10. [@kitcambridge]
+  * Simplify socket close, just exit.
+
 0.2.0 / 2013-04-09
 ==================
 
