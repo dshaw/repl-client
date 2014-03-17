@@ -32,7 +32,7 @@ if (!options.path) {
  * REPL Client
  */
 
-var socket = net.connect(options);
+var socket = net.connect(options)
 
 process.stdin
   .pipe(socket)
