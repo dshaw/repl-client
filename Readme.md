@@ -14,6 +14,27 @@ REPL client with tab completion and history. A simple, npm installable alternati
 
 To easily add a REPL to your Node.js app, use [replify](https://github.com/dshaw/replify).
 
+## Compatibility
+
+`repl-client` only works under node 0.10. Upgrade.
+
+## Use cases
+
+As a repl
+```shell
+rc /tmp/repl/hello.sock
+hello> require('os').type()
+'Linux'
+```
+
+Using `stdin` pipe
+```shell
+echo "require('os').type()" | rc /tmp/repl/hello.sock
+hello> require('os').type()
+'Linux'
+hello> %
+```
+
 ## Props
 
 - Special thanks to @TooTallNate for all the work he's done in improving node's REPL.
