@@ -33,26 +33,20 @@ if (!options.path) {
  */
 
 var socket = net.connect(options)
-  , streams2 = !!stream.Transform
 
-process.stdin.pipe(socket)
-socket.pipe(process.stdout)
+process.stdin
+  .pipe(socket)
+  .pipe(process.stdout)
 
-process.stdin.on('end', function () {
-  process.stdin.setRawMode(false)
-  socket.destroy()
-})
-
-process.stdin.on('data', function (buffer) {
+process.stdin.on('data', function watchForEOT(buffer) {
   if (buffer.length === 1 && buffer[0] === 4) { // EOT (end-of-transmission) Ctrl-D
     console.log() // provide graceful line break
     process.stdin.emit('end')
   }
 })
 
-socket.on('connect', function () {
-  if (!streams2) process.stdin.resume()
-  process.stdin.setRawMode(true)
-})
-
-socket.on('close', process.exit)
+if (process.stdin.setRawMode) {
+  socket.on('connect', function activateRawMode() {
+    process.stdin.setRawMode(true)
+  })
+}
