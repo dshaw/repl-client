@@ -2,7 +2,7 @@
 
 /*!
  * repl-client
- * Copyright(c) 2012-2013 Daniel D. Shaw <dshaw@dshaw.com>
+ * Copyright(c) 2012-2014 Daniel D. Shaw <dshaw@dshaw.com>
  * MIT Licensed
  */
 
