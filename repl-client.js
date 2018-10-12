@@ -41,6 +41,8 @@ process.stdin
 process.stdin.on('data', function watchForEOT(buffer) {
   if (buffer.length === 1 && buffer[0] === 4) { // EOT (end-of-transmission) Ctrl-D
     console.log() // provide graceful line break
+    if (process.stdin.setRawMode)
+      process.stdin.setRawMode(false)
     process.stdin.emit('end')
   }
 })
