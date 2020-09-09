@@ -1,6 +1,6 @@
 {
   "name": "repl-client",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "REPL Client (rc) with tab completion and history. A simple, npm installable alternative to netcat (nc) and socat.",
   "keywords": [
     "repl",
