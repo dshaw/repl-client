@@ -38,12 +38,13 @@ process.stdin
   .pipe(socket)
   .pipe(process.stdout)
 
-process.stdin.on('data', function watchForEOT(buffer) {
-  if (buffer.length === 1 && buffer[0] === 4) { // EOT (end-of-transmission) Ctrl-D
-    console.log() // provide graceful line break
-    process.stdin.emit('end')
-  }
-})
+socket.on('close', function () {
+  if (process.stdin.setRawMode)
+    process.stdin.setRawMode(false)
+  process.stdin.emit('end')
+  console.log('')
+  process.exit()
+});
 
 if (process.stdin.setRawMode) {
   socket.on('connect', function activateRawMode() {
